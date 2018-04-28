@@ -11,11 +11,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
+    user = User.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email],password: params[:password])
+    # byebug
     if user.valid?
       user.save
-      token = issue_token({ 'user_id': @user.id })
-      render json: {'token': token, 'user_id': @user.id }
+      token = issue_token({ 'user_id': user.id })
+      render json: {'token': token, 'user_id': user.id, 'first_name': user.first_name, 'last_name': user.last_name}
     else
       render json: {'error': 'User already exists!'}
     end
