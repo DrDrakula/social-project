@@ -9,4 +9,14 @@ class PostsController < ApplicationController
     post = Post.find_by(id: params[:id])
     render json: post
   end
+
+  def create
+    post = Post.new(title: params[:title], content: params[:content], user_id: params[:user_id])
+    if post.valid?
+      post.save
+      render json: {'title': post.title, 'content': post.content, 'created_at': post.created_at, 'id': post.id}
+    else
+      render json: {'error': "Couldn't post this post!"}
+    end
+  end
 end
