@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     post = Post.new(title: params[:title], content: params[:content], user_id: params[:user_id])
     if post.valid?
       post.save
-      render json: {'title': post.title, 'content': post.content, 'created_at': post.created_at, 'id': post.id}
+      render json: {'title': post.title, 'content': post.content, 'created_at': post.created_at, 'id': post.id, 'user': post.user}
     else
       render json: {'error': "Couldn't post this post!"}
     end
